@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>暦眼 -REKIGAN- | 陰陽師霊視鑑定</title>
+  <meta name="description" content="日本でも希少な女性の陰陽師・暦（koyomi）による霊視鑑定。見る・施す・防ぐ——占いを超えた、三位一体の力。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: rgba(10, 10, 10, 0.98); }
+  </style>
+</head>
+<body>
+
+  <!-- ローディング画面 -->
+  <div id="loader">
+    <div class="loader-inner">
+      <img src="image/logo-only.png" alt="暦眼" class="loader-logo">
+      <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- パーティクル背景 -->
+  <canvas id="particles"></canvas>
+
+  <!-- ヘッダー -->
+  <header id="header">
+    <div class="header-inner">
+      <img src="image/logo-yoko.png" alt="暦眼 -REKIGAN-" class="header-logo">
+      <div class="header-right">
+        <div class="lang-switcher">
+          <button class="lang-current" id="langToggle" aria-label="言語切替">
+            <span class="lang-label">JA</span>
+            <svg class="lang-arrow" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <ul class="lang-dropdown" id="langDropdown">
+            <li><button data-lang="ja" class="active">日本語</button></li>
+            <li><button data-lang="en">English</button></li>
+            <li><button data-lang="zh-CN">简体中文</button></li>
+            <li><button data-lang="zh-TW">繁體中文</button></li>
+          </ul>
+        </div>
+        <a href="https://lin.ee/nRJ9YSX" target="_blank" rel="noopener noreferrer" class="header-cta" data-i18n="nav.cta">鑑定予約</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ヒーロー -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img src="image/S__73195552_0.jpg" alt="" class="hero-img">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-sub fade-up delay-1" data-i18n="hero.sub">あなたの「見えない領域」に触れる。</p>
+      <div class="hero-badge fade-up delay-5" data-i18n="hero.badge">陰陽師霊視鑑定</div>
+      <div class="hero-scroll fade-up delay-6">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">SCROLL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入 -->
+  <section id="intro" class="section">
+    <div class="container">
+      <p class="intro-statement fade-up" data-i18n="intro.statement"><strong>占いではありません。</strong></p>
+      <div class="intro-body">
+        <p class="fade-up" data-i18n="intro.body1">オーラが視える。過去が視える。<br>いま、あなたの周りに何があるかが視える。</p>
+        <p class="fade-up" data-i18n="intro.body2">暦（koyomi）は、幼少期から「視える」能力を持つ、<br class="pc-only">日本でも極めて希少な<strong>女性の陰陽師</strong>です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三位一体 -->
+  <section id="trinity" class="section section-dark">
+    <div class="container">
+      <div class="trinity-visual fade-up">
+        <img src="image/S__73195553_0.jpg" alt="暦 -koyomi-" class="trinity-img">
+        <div class="trinity-img-overlay"></div>
+      </div>
+      <div class="trinity-text">
+        <p class="trinity-lead fade-up" data-i18n="trinity.lead">占い師が「未来を読む」存在だとすれば——</p>
+        <h2 class="trinity-title fade-up" data-i18n="trinity.title">
+          「見る・施す・防ぐ」<br><em>三位一体。</em>
+        </h2>
+        <p class="trinity-desc fade-up" data-i18n="trinity.desc">
+          結界を張る。不要な縁を切る。エネルギーを入れる。<br>
+          ただ鑑定するだけでなく、<br class="sp-only">
+          <strong>その場で状況を変える力</strong>がここにあります。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 霊視鑑定とは -->
+  <section id="reading" class="section">
+    <div class="container">
+      <h2 class="section-title fade-up" data-i18n="reading.title">
+        <span class="section-title-en">CLAIRVOYANCE</span>
+        あなたを見た瞬間、<br>視えるものがあります。
+      </h2>
+      <div class="reading-grid">
+        <div class="reading-card fade-up">
+          <div class="reading-card-icon">
+            <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="28" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="8" fill="currentColor" opacity="0.3"/><circle cx="30" cy="30" r="3" fill="currentColor"/></svg>
+          </div>
+          <h3 data-i18n="reading.card1.title">オーラの色・状態</h3>
+          <p data-i18n="reading.card1.desc">いま、あなたがどんな<br>エネルギーを纏っているか</p>
+        </div>
+        <div class="reading-card fade-up delay-1">
+          <div class="reading-card-icon">
+            <svg viewBox="0 0 60 60" fill="none"><path d="M30 5 L55 50 L5 50 Z" stroke="currentColor" stroke-width="1" fill="none"/><circle cx="30" cy="35" r="5" fill="currentColor" opacity="0.3"/></svg>
+          </div>
+          <h3 data-i18n="reading.card2.title">現状の本質</h3>
+          <p data-i18n="reading.card2.desc">表面的な悩みの奥にある、<br>本当の原因</p>
+        </div>
+        <div class="reading-card fade-up delay-2">
+          <div class="reading-card-icon">
+            <svg viewBox="0 0 60 60" fill="none"><path d="M30 5 L30 55" stroke="currentColor" stroke-width="1"/><path d="M15 20 Q30 35 45 20" stroke="currentColor" stroke-width="1" fill="none"/><path d="M15 40 Q30 25 45 40" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+          </div>
+          <h3 data-i18n="reading.card3.title">過去の痕跡</h3>
+          <p data-i18n="reading.card3.desc">あなたの背景に残る出来事や<br>人間関係の影響</p>
+        </div>
+      </div>
+      <p class="reading-note fade-up" data-i18n="reading.note">
+        「なぜかうまくいかない」「理由のない不調が続く」<br>
+        ──その答えが、霊視の中にあることがあります。
+      </p>
+    </div>
+  </section>
+
+  <!-- 占いとの違い -->
+  <section id="difference" class="section section-dark">
+    <div class="container">
+      <h2 class="section-title fade-up" data-i18n="diff.title">
+        <span class="section-title-en">DIFFERENCE</span>
+        占いの、さらに奥へ。
+      </h2>
+      <div class="diff-table-wrap fade-up">
+        <table class="diff-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th data-i18n="diff.th1">一般的な占い</th>
+              <th class="highlight" data-i18n="diff.th2">陰陽師霊視鑑定</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label" data-i18n="diff.row1.label">できること</td>
+              <td data-i18n="diff.row1.normal">視る・伝える</td>
+              <td class="highlight" data-i18n="diff.row1.rekigan"><strong>視る＋施す＋防ぐ</strong></td>
+            </tr>
+            <tr>
+              <td class="label" data-i18n="diff.row2.label">アプローチ</td>
+              <td data-i18n="diff.row2.normal">統計・象徴の解釈</td>
+              <td class="highlight" data-i18n="diff.row2.rekigan"><strong>直接の霊視・エネルギー操作</strong></td>
+            </tr>
+            <tr>
+              <td class="label" data-i18n="diff.row3.label">結界・お祓い</td>
+              <td data-i18n="diff.row3.normal">不可</td>
+              <td class="highlight" data-i18n="diff.row3.rekigan"><strong>対応可能</strong></td>
+            </tr>
+            <tr>
+              <td class="label" data-i18n="diff.row4.label">縁切り・縁繋ぎ</td>
+              <td data-i18n="diff.row4.normal">不可</td>
+              <td class="highlight" data-i18n="diff.row4.rekigan"><strong>対応可能</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="diff-quote fade-up" data-i18n="diff.quote">
+        占い師は「見る」だけ。<br>
+        暦は、<strong>見たうえで、動かします。</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- 提供サービス -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2 class="section-title fade-up" data-i18n="services.title">
+        <span class="section-title-en">SERVICES</span>
+        鑑定で提供できること
+      </h2>
+      <div class="services-list">
+        <div class="service-item fade-up">
+          <span class="service-num">01</span>
+          <div class="service-content">
+            <h3 data-i18n="services.s1.title">霊視鑑定</h3>
+            <p data-i18n="services.s1.desc">オーラ・過去・現状のリーディング</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-num">02</span>
+          <div class="service-content">
+            <h3 data-i18n="services.s2.title">結界術</h3>
+            <p data-i18n="services.s2.desc">張る・切る——空間と人を守護する</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-num">03</span>
+          <div class="service-content">
+            <h3 data-i18n="services.s3.title">エネルギー注入</h3>
+            <p data-i18n="services.s3.desc">パワーを入れ、本来の状態へ導く</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-num">04</span>
+          <div class="service-content">
+            <h3 data-i18n="services.s4.title">良縁繋ぎ</h3>
+            <p data-i18n="services.s4.desc">恋愛・人間関係の縁を整える</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-num">05</span>
+          <div class="service-content">
+            <h3 data-i18n="services.s5.title">健康面へのアプローチ</h3>
+            <p data-i18n="services.s5.desc">エネルギー的な観点から身体に働きかける</p>
+          </div>
+        </div>
+      </div>
+      <p class="services-note fade-up" data-i18n="services.note">※医療行為ではありません。医師の診断・治療に代わるものではありません。</p>
+    </div>
+  </section>
+
+  <!-- 料金 -->
+  <section id="price" class="section section-dark">
+    <div class="container">
+      <h2 class="section-title fade-up" data-i18n="price.title">
+        <span class="section-title-en">PRICE</span>
+        料金
+      </h2>
+      <div class="price-main fade-up">
+        <span class="price-label" data-i18n="price.label">初回鑑定</span>
+        <div class="price-amount">
+          <span class="price-time">10</span><span class="price-unit" data-i18n="price.unit">分</span>
+          <span class="price-yen">¥5,500</span><span class="price-tax" data-i18n="price.tax">（税込）</span>
+        </div>
+      </div>
+      <p class="price-desc fade-up" data-i18n="price.desc">追加は10分ごとに¥5,500。<br>必要な分だけ、必要な時間だけ。</p>
+      <div class="price-table-wrap fade-up">
+        <table class="price-table">
+          <tbody>
+            <tr><td>10分</td><td>¥5,500</td></tr>
+            <tr><td>20分</td><td>¥11,000</td></tr>
+            <tr><td>30分</td><td>¥16,500</td></tr>
+            <tr><td>40分</td><td>¥22,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="price-note fade-up" data-i18n="price.note">タイマーで時間管理を徹底。予想外の請求はありません。</p>
+      <p class="price-remote fade-up" data-i18n="price.remote">遠隔での霊視鑑定も可能です。ご本人様の写真をご用意ください。</p>
+    </div>
+  </section>
+
+  <!-- 口コミ -->
+  <section id="voice" class="section">
+    <div class="container">
+      <h2 class="section-title fade-up" data-i18n="voice.title">
+        <span class="section-title-en">VOICE</span>
+        体験者の声
+      </h2>
+      <div class="voice-list">
+        <blockquote class="voice-item fade-up">
+          <p data-i18n="voice.v1.text">初めて会った瞬間に、誰にも話していないことを言い当てられた。思わず涙が流れた。</p>
+          <cite data-i18n="voice.v1.cite">── 40代男性 T.T</cite>
+        </blockquote>
+        <blockquote class="voice-item fade-up">
+          <p data-i18n="voice.v2.text">鑑定後、ずっと重かった身体が嘘みたいに軽くなった。あの感覚は今でも忘れられない。</p>
+          <cite data-i18n="voice.v2.cite">── 30代女性 J.K</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- クロージング＆CTA -->
+  <section id="contact" class="section section-cta">
+    <div class="container">
+      <div class="cta-logo fade-up">
+        <img src="image/logo-yoko.png" alt="暦眼 -REKIGAN-">
+      </div>
+      <p class="cta-lead fade-up" data-i18n="cta.lead">
+        「すごい人がいる」と、<br class="sp-only">静かに広がっています。
+      </p>
+      <div class="cta-desc fade-up" data-i18n="cta.desc">
+        <p>宣伝はしていません。</p>
+        <p>ただ、一度鑑定を受けた方が、<br class="sp-only">大切な人にだけ紹介してくれる。</p>
+        <p>そうやって、暦（koyomi）のもとに集まる<br class="sp-only">人のご縁を大切に、<br>人生をよりよくするきっかけをあなたに。</p>
+      </div>
+      <p class="cta-closing fade-up" data-i18n="cta.closing">まずは10分。<br>視えるものを、確かめてみてください。</p>
+      <a href="https://lin.ee/nRJ9YSX" target="_blank" rel="noopener noreferrer" class="cta-button fade-up" id="line-btn">
+        <span class="cta-button-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.21 3.74 7.74 8.79 8.4.34.07.81.22.93.51.1.26.07.67.03.93l-.15.91c-.05.28-.22 1.1.96.6 1.18-.5 6.38-3.76 8.71-6.44C23.07 13.39 22 11.86 22 10.5 22 5.82 17.52 2 12 2z"/></svg>
+        </span>
+        <span data-i18n="cta.button">LINE@で鑑定を予約する</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-logo-wrap">
+        <img src="image/logo-tate.png" alt="暦眼 -REKIGAN-" class="footer-logo-main">
+      </div>
+      <div class="footer-notes">
+        <p data-i18n="footer.note1">※本サービスは占い・スピリチュアルサービスであり、医療行為・金融助言ではありません。</p>
+        <p data-i18n="footer.note2">※効果には個人差があります。</p>
+        <p data-i18n="footer.note3">※不安を煽る勧誘は一切行いません。</p>
+        <p data-i18n="footer.note4">※鑑定内容は厳守し、第三者に開示することはありません。</p>
+        <p data-i18n="footer.note5">※18歳未満の方は保護者の同意が必要です。</p>
+      </div>
+      <div class="footer-links">
+        <a href="tokushoho.html" data-i18n="footer.link1">特定商取引法に基づく表記</a>
+        <span class="footer-divider">|</span>
+        <a href="privacy.html" data-i18n="footer.link2">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">&copy; 暦眼 -REKIGAN- All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

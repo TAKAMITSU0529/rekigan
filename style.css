@@ -1,0 +1,1025 @@
+/* ========================================
+   暦眼 -REKIGAN- LP
+   カラー: 黒・白・金・赤
+   ======================================== */
+
+:root {
+  --black: #0a0a0a;
+  --black-light: #141414;
+  --white: #f5f0eb;
+  --white-pure: #ffffff;
+  --gold: #c9a96e;
+  --gold-light: #d4bc8b;
+  --gold-dark: #a8873f;
+  --red: #8b1a1a;
+  --red-light: #b22222;
+  --gray: #888;
+  --gray-dark: #333;
+  --font-serif: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', '游明朝', serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-serif);
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.pc-only { display: inline; }
+.sp-only { display: none; }
+
+/* ========================================
+   ローディング
+   ======================================== */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-inner {
+  text-align: center;
+}
+
+.loader-logo {
+  width: 80px;
+  height: 80px;
+  opacity: 0.9;
+  animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.loader-bar {
+  width: 120px;
+  height: 1px;
+  background: var(--gray-dark);
+  margin: 24px auto 0;
+  overflow: hidden;
+}
+
+.loader-bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+  animation: loaderFill 1.8s ease forwards;
+}
+
+@keyframes loaderFill {
+  to { width: 100%; }
+}
+
+/* ========================================
+   パーティクル
+   ======================================== */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* ========================================
+   ヘッダー
+   ======================================== */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+
+#header.scrolled {
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  height: 56px;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.header-logo:hover { opacity: 1; }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.lang-switcher {
+  position: relative;
+}
+
+.lang-current {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  color: var(--gold);
+  padding: 6px 14px;
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.lang-current:hover {
+  border-color: var(--gold);
+}
+
+.lang-arrow {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.3s ease;
+}
+
+.lang-switcher.open .lang-arrow {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  list-style: none;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.3s ease;
+  z-index: 200;
+}
+
+.lang-switcher.open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px 18px;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  letter-spacing: 0.05em;
+}
+
+.lang-dropdown button:hover {
+  background: rgba(201, 169, 110, 0.1);
+  color: var(--gold);
+}
+
+.lang-dropdown button.active {
+  color: var(--gold);
+}
+
+.header-cta {
+  display: inline-block;
+  padding: 8px 24px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  transition: all 0.4s ease;
+}
+
+.header-cta:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+/* ========================================
+   ヒーロー
+   ======================================== */
+#hero {
+  position: relative;
+  z-index: 3;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(1.05);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.12); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.hero-sub {
+  font-size: clamp(1.15rem, 2.8vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.8;
+  opacity: 0.95;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 10px 40px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.35em;
+  margin-bottom: 56px;
+}
+
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.scroll-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+/* ========================================
+   セクション共通
+   ======================================== */
+.section {
+  position: relative;
+  z-index: 3;
+  padding: 120px 0;
+}
+
+.section-dark {
+  background: var(--black-light);
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.7;
+  margin-bottom: 64px;
+}
+
+.section-title-en {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+/* ========================================
+   フェードアニメーション
+   ======================================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+.delay-4 { transition-delay: 0.6s; }
+.delay-5 { transition-delay: 0.75s; }
+.delay-6 { transition-delay: 0.9s; }
+
+/* ========================================
+   導入セクション
+   ======================================== */
+#intro {
+  text-align: center;
+  background: var(--black);
+}
+
+.intro-statement {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 48px;
+  color: var(--white);
+}
+
+.intro-body p {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  line-height: 2.2;
+  margin-bottom: 24px;
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+.intro-body strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ========================================
+   三位一体セクション
+   ======================================== */
+#trinity .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.trinity-visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.trinity-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0.9) contrast(1.05);
+}
+
+.trinity-img-overlay {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  pointer-events: none;
+}
+
+.trinity-lead {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.trinity-title {
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.trinity-title em {
+  font-style: normal;
+  color: var(--gold);
+  font-size: 1.15em;
+}
+
+.trinity-desc {
+  font-size: 0.95rem;
+  line-height: 2.2;
+  opacity: 0.85;
+  font-weight: 300;
+}
+
+.trinity-desc strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ========================================
+   霊視鑑定
+   ======================================== */
+.reading-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.reading-card {
+  text-align: center;
+  padding: 48px 24px;
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  background: rgba(20, 20, 20, 0.5);
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+
+.reading-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.reading-card-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 24px;
+  color: var(--gold);
+}
+
+.reading-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--gold-light);
+}
+
+.reading-card p {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.reading-note {
+  text-align: center;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  line-height: 2;
+  font-weight: 300;
+}
+
+/* ========================================
+   占いとの違い
+   ======================================== */
+.diff-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 48px;
+}
+
+.diff-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.diff-table th,
+.diff-table td {
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+}
+
+.diff-table th {
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+}
+
+.diff-table th.highlight {
+  color: var(--gold);
+}
+
+.diff-table td.label {
+  text-align: left;
+  font-weight: 500;
+  color: var(--gray);
+  font-size: 0.8rem;
+}
+
+.diff-table td.highlight {
+  color: var(--gold-light);
+}
+
+.diff-table td.highlight strong {
+  font-weight: 600;
+}
+
+.diff-quote {
+  text-align: center;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  line-height: 2;
+}
+
+.diff-quote strong {
+  color: var(--gold);
+}
+
+/* ========================================
+   提供サービス
+   ======================================== */
+.services-list {
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+  transition: border-color 0.4s ease;
+}
+
+.service-item:hover {
+  border-bottom-color: var(--gold);
+}
+
+.service-num {
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  flex-shrink: 0;
+  padding-top: 4px;
+  opacity: 0.6;
+}
+
+.service-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.service-content p {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  font-weight: 300;
+}
+
+.services-note {
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+/* ========================================
+   料金
+   ======================================== */
+.price-main {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.price-label {
+  display: inline-block;
+  padding: 4px 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+
+.price-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.price-time {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.price-unit {
+  font-size: 1rem;
+  color: var(--gold);
+  margin-right: 12px;
+}
+
+.price-yen {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.price-tax {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.price-desc {
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  line-height: 2;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.price-table-wrap {
+  max-width: 400px;
+  margin: 0 auto 24px;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.price-table td {
+  padding: 14px 24px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+  font-size: 0.9rem;
+}
+
+.price-table td:first-child {
+  color: var(--gray);
+}
+
+.price-table td:last-child {
+  text-align: right;
+  font-weight: 500;
+  color: var(--gold-light);
+}
+
+.price-note {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+.price-remote {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 32px;
+  padding: 16px 24px;
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  color: var(--gold-light);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   口コミ
+   ======================================== */
+.voice-list {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.voice-item {
+  padding: 36px 40px;
+  border-left: 2px solid var(--gold);
+  background: rgba(20, 20, 20, 0.5);
+}
+
+.voice-item p {
+  font-size: 1rem;
+  line-height: 2;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.voice-item cite {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  font-style: normal;
+  opacity: 0.5;
+  color: var(--gold);
+}
+
+/* ========================================
+   CTA
+   ======================================== */
+.section-cta {
+  background:
+    radial-gradient(ellipse at center, rgba(201, 169, 110, 0.05) 0%, transparent 70%),
+    var(--black);
+  text-align: center;
+  padding: 140px 0;
+}
+
+.cta-logo {
+  margin-bottom: 48px;
+}
+
+.cta-logo img {
+  height: 120px;
+  opacity: 0.9;
+}
+
+.cta-lead {
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+  line-height: 2;
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+.cta-desc {
+  font-size: 0.9rem;
+  line-height: 2.2;
+  opacity: 0.7;
+  font-weight: 300;
+  margin-bottom: 44px;
+}
+
+.cta-desc p {
+  margin-bottom: 12px;
+}
+
+.cta-desc p:last-child {
+  margin-bottom: 0;
+}
+
+.cta-closing {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 48px;
+  line-height: 2;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, #2d5a3d, #1e3f2b);
+  color: var(--white-pure);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px rgba(45, 90, 61, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(45, 90, 61, 0.45);
+}
+
+.cta-button-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* ========================================
+   フッター
+   ======================================== */
+#footer {
+  position: relative;
+  z-index: 1;
+  background: var(--black);
+  padding: 80px 0 40px;
+  text-align: center;
+  border-top: 1px solid rgba(201, 169, 110, 0.1);
+  color: var(--white);
+}
+
+.footer-logo-wrap {
+  margin-bottom: 40px;
+}
+
+.footer-logo-main {
+  height: 160px;
+  opacity: 0.85;
+}
+
+.footer-notes {
+  margin-bottom: 24px;
+}
+
+.footer-notes p {
+  font-size: 0.7rem;
+  opacity: 0.4;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.footer-links {
+  margin-bottom: 24px;
+}
+
+.footer-links a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.footer-divider {
+  margin: 0 12px;
+  color: var(--gray-dark);
+  font-size: 0.7rem;
+}
+
+.footer-copy {
+  font-size: 0.65rem;
+  opacity: 0.3;
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+@media (max-width: 768px) {
+  .pc-only { display: none; }
+  .sp-only { display: inline; }
+
+  .section { padding: 80px 0; }
+
+  .section-title {
+    font-size: 1.3rem;
+    margin-bottom: 48px;
+  }
+
+  /* ヒーロー */
+  .hero-img {
+    object-position: center center;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 8px 28px;
+    letter-spacing: 0.3em;
+    margin-bottom: 44px;
+  }
+
+  /* 三位一体 */
+  #trinity .container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .trinity-visual {
+    order: -1;
+  }
+
+  .trinity-text {
+    text-align: center;
+  }
+
+  /* 霊視 */
+  .reading-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .reading-card {
+    padding: 32px 20px;
+  }
+
+  /* テーブル */
+  .diff-table {
+    font-size: 0.8rem;
+  }
+
+  .diff-table th,
+  .diff-table td {
+    padding: 14px 10px;
+  }
+
+  /* 口コミ */
+  .voice-item {
+    padding: 24px 20px;
+  }
+
+  /* CTA */
+  .section-cta {
+    padding: 100px 0;
+  }
+
+  .cta-logo img {
+    height: 90px;
+  }
+
+  .cta-button {
+    padding: 16px 36px;
+    font-size: 0.9rem;
+  }
+
+  /* フッター */
+  .footer-logo-main { height: 120px; }
+
+  /* ヘッダー */
+  .header-logo { height: 42px; }
+  .header-cta { font-size: 0.7rem; padding: 6px 16px; }
+  .header-right { gap: 10px; }
+  .lang-current { padding: 5px 10px; font-size: 0.65rem; }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 15px; }
+
+  .hero-title { font-size: 1.5rem; }
+
+  .price-amount {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,124 @@
+.legal-page {
+  padding: 140px 0 80px;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.legal-title {
+  text-align: center;
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  font-weight: 600;
+  margin-bottom: 60px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.legal-intro {
+  font-size: 0.9rem;
+  line-height: 2;
+  opacity: 0.8;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 48px;
+}
+
+.legal-table th,
+.legal-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+  font-size: 0.85rem;
+  line-height: 1.9;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-table th {
+  width: 180px;
+  color: var(--gold);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.legal-table td {
+  font-weight: 300;
+  opacity: 0.85;
+}
+
+.legal-section {
+  margin-bottom: 40px;
+}
+
+.legal-section h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--gold-light);
+  letter-spacing: 0.05em;
+}
+
+.legal-section p {
+  font-size: 0.85rem;
+  line-height: 2;
+  opacity: 0.8;
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.legal-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.legal-section ul li {
+  font-size: 0.85rem;
+  line-height: 2;
+  opacity: 0.8;
+  font-weight: 300;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.legal-section ul li::before {
+  content: '・';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.legal-date {
+  text-align: right;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin-top: 48px;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .legal-page {
+    padding: 110px 0 60px;
+  }
+
+  .legal-table th {
+    width: auto;
+    display: block;
+    padding-bottom: 4px;
+    border-bottom: none;
+  }
+
+  .legal-table td {
+    display: block;
+    padding-top: 0;
+    padding-bottom: 18px;
+  }
+
+  .legal-table tr {
+    border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+  }
+}
